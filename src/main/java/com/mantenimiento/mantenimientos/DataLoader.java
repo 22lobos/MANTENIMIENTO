@@ -40,6 +40,20 @@ public class DataLoader implements CommandLineRunner {
 
         List<Piso> pisos = pisoRepository.findAll();
 
+        // Descripciones realistas
+        String[] descripciones = {
+            "Cambio de filtro de aire",
+            "Inspección de extintores",
+            "Revisión de luminarias LED",
+            "Chequeo del sistema eléctrico",
+            "Limpieza de canaletas",
+            "Mantenimiento de bombas de agua",
+            "Verificación de sistema de incendios",
+            "Lubricación de motores de ascensor",
+            "Control de plagas programado",
+            "Chequeo de climatización"
+        };
+
         // Crear mantenimientos
         for (int i = 0; i < 10; i++) {
             LocalDate fechaProgramada = LocalDate.now().plusDays(random.nextInt(10));
@@ -47,7 +61,7 @@ public class DataLoader implements CommandLineRunner {
 
             Mantenimiento mantenimiento = Mantenimiento.builder()
                 .tipo(faker.options().option("Preventivo", "Correctivo", "Inspección", "Emergencia"))
-                .descripcion(faker.lorem().sentence())
+                .descripcion(descripciones[i % descripciones.length])
                 .fechaProgramada(fechaProgramada)
                 .fechaRealizacion(fechaRealizacion)
                 .estado(faker.options().option("Programado", "En Proceso", "Finalizado"))
